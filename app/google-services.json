@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1005333651313",
+    "project_id": "concentration-816f8",
+    "storage_bucket": "concentration-816f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005333651313:android:2f0e0f9033f76abf3f60d0",
+        "android_client_info": {
+          "package_name": "com.diayansiat.cognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005333651313-drurdupsu94o8ckc7v0eijk2ls7rhp4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_24qrOtBNov5Cthp2wdazrfvzCfkCtPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005333651313-drurdupsu94o8ckc7v0eijk2ls7rhp4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
