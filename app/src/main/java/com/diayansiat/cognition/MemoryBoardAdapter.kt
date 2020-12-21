@@ -1,7 +1,6 @@
 package com.diayansiat.cognition
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,7 @@ class MemoryBoardAdapter(
                     imageButton.setImageResource(memoryCard.identifier)
                 }
             }else {
-                imageButton.setImageResource(R.drawable.ic_launcher_background)
+                imageButton.setImageResource(R.drawable.ic_launcher_background) //TODO: Change this image to something cooler
             }
             imageButton.alpha = if(memoryCard.isMatched) .4f else 1f
             val colorStateList = if (memoryCard.isMatched ) ContextCompat.getColorStateList(context, R.color.color_gray) else null
