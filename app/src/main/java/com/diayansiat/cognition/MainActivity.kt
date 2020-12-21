@@ -3,12 +3,14 @@ package com.diayansiat.cognition
 import android.animation.ArgbEvaluator
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -21,9 +23,11 @@ import com.diayansiat.cognition.models.CustomGameImageList
 import com.diayansiat.cognition.models.MemoryGame
 import com.diayansiat.cognition.utils.EXTRA_BOARD_SIZE
 import com.diayansiat.cognition.utils.EXTRA_GAME_NAME
+import com.github.jinatonic.confetti.CommonConfetti
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val CREATE_BOARD_REQUEST_CODE = 2481
@@ -82,8 +86,25 @@ class MainActivity : AppCompatActivity() {
             R.id.mi_custom -> {
                 showCreationDialog()
             }
+
+            R.id.mi_download -> {
+                showDownloadDialog()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //this allows user to enter name of the game they want to download
+    private fun showDownloadDialog() {
+        val boardDownloadView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_download_board, null)
+        showAlertDialog("Fetch memory game", boardDownloadView, View.OnClickListener {
+            //grab the text of the game name that the user wants to download
+            val etDownloadGame = boardDownloadView.findViewById<EditText>(R.id.etDownloadGame)
+            val gameToDownload = etDownloadGame.text.toString().trim()
+            downloadGame(gameToDownload)
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -118,11 +139,20 @@ class MainActivity : AppCompatActivity() {
                 boardSize = BoardSize.getByValue(numCards)
                 gameName = customGameName
                 customGameImages = customGameImageList.images
+                //pre-fetch all the images to avoid them taking longer to download
+                for (imageUrl in customGameImageList.images) {
+                    Picasso.get().load(imageUrl).fetch()
+                }
+                Snackbar.make(
+                    clRoot,
+                    "You are now playing '$customGameName'!",
+                    Snackbar.LENGTH_LONG
+                ).show()
                 setupGameBoard()
 
             }.addOnFailureListener { exception ->
-            Log.e(TAG, "Exception when retrieving game", exception)
-        }
+                Log.e(TAG, "Exception when retrieving game", exception)
+            }
     }
 
     //creating a custom game
@@ -244,6 +274,12 @@ class MainActivity : AppCompatActivity() {
             tvNumPairs.text = "Pairs: ${memoryGame.numPairsFound} / ${boardSize.getNumCardPairs()}"
             if (memoryGame.haveWonGame()) {
                 Snackbar.make(clRoot, "You won! Congratulations!", Snackbar.LENGTH_LONG).show()
+                for (i in 0..4) {
+                    CommonConfetti.rainingConfetti(
+                        clRoot,
+                        intArrayOf(Color.RED, Color.GREEN, Color.MAGENTA, Color.YELLOW)
+                    ).oneShot()
+                }
             }
         }
         tvNumMoves.text = "Moves: ${memoryGame.getNumMoves()}"
