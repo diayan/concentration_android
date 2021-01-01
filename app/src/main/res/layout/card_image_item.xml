@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icCustomImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="8dp"
-        android:background="@android:color/darker_gray"
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView"
+        android:background="@drawable/ic_image"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 </LinearLayout>
