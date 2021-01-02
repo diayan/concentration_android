@@ -17,4 +17,9 @@
             <!-- Customize your theme here. -->
 
     </style>
+
+    <style name="roundedCornersImageView" parent="AppTheme">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>

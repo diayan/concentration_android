@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
@@ -17,11 +18,26 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        dataBinding = true
+
+        viewBinding = true
     }
 }
 
@@ -38,6 +54,20 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    implementation "androidx.navigation:navigation-runtime-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 
 
     testImplementation 'junit:junit:4.12'
