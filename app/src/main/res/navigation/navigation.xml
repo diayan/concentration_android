@@ -10,4 +10,10 @@
         android:name="com.diayansiat.cognition.fragments.GameFragment"
         android:label="Concentration"
         tools:layout="@layout/fragment_game"/>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.diayansiat.cognition.fragments.LoginFragment"
+        android:label="Concentration"
+        tools:layout="@layout/fragment_login"/>
 </navigation>

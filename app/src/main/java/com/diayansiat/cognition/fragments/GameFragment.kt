@@ -30,7 +30,6 @@ import kotlinx.android.synthetic.main.fragment_game.*
 
 private const val CREATE_BOARD_REQUEST_CODE = 2481
 
-
 class GameFragment : Fragment() {
 
     companion object {
